@@ -1,0 +1,14 @@
+Weather Dashboard
+
+User will type into input field and then click into the search button
+    -Need to capture the input value
+    -Need an event listener on search button
+
+Once the user clicks search, I need to display the current forcast and the 5 day forcast
+
+Create a button with the city's name
+
+When user clicks, will show the relevant city's weather
+
+Store the weather results in local storage
+
