@@ -20,16 +20,78 @@
       <div class="row">
         <aside class="col-lg-3">
           <h2>Search for a City:</h2>
-          <form id="form-sbt">
+          <form id="form-submit">
             <div class="form-group">
               <input type="text" class="form-control" id="user-input" aria-describedby="userInput" />
             </div>
             <button type="submit" class="btn btn-primary">Search</button>
           </form>
+          <div>
+            <button class="btn btn-secondary recent-button"></button>
+          </div>
         </aside>
-        <hr />
-        <section id="current-forcast"></section>
+        <!-- <hr /> -->
+        <section id="current-forecast" class="col-lg-9"></section>
+        <section>
+          <div class="row card">
+            <div class="card-body">
+              <p id="date1"></p>
+              <p id="icon1"></p>
+              <p id="temp1"></p>
+              <p id="wind1"></p>
+              <p id="humidity1"></p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <p id="date9"></p>
+              <p id="icon9"></p>
+              <p id="temp9"></p>
+              <p id="wind9"></p>
+              <p id="humidity9"></p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <p id="date17"></p>
+              <p id="icon17"></p>
+              <p id="temp17"></p>
+              <p id="wind17"></p>
+              <p id="humidity17"></p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <p id="date25"></p>
+              <p id="icon25"></p>
+              <p id="temp25"></p>
+              <p id="wind25"></p>
+              <p id="humidity25"></p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <p id="date33"></p>
+              <p id="icon33"></p>
+              <p id="temp33"></p>
+              <p id="wind33"></p>
+              <p id="humidity33"></p>
+            </div>
+          </div>
+        </section>
       </div>
     </main>
+    <script
+      src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+      integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+      integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="./Assets/js/script.js"></script>
   </body>
 </html>

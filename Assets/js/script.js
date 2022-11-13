@@ -1,74 +1,119 @@
 // VARIABLE DECLARATIONS
 var userInput = document.getElementById("user-input");
-var userForm = document.getElementById("form-sbt");
-var dayForcast = document.getElementById("current-forcast");
-
-var weatherAPI = ""
-var apiKey = ""
+var userForm = document.getElementById("form-submit");
+var dayForecast = document.getElementById("current-forecast");
+var cardImage = document.querySelector(".card-body");
+var weatherAPI = "https://api.openweathermap.org/data/2.5/forecast?";
+var apiKey = "b204b903e2aaaf70273697cbb04e6443";
 
 // FUNCTIONS
-functionrenderCards() {
-    // DOM manipulation
-}
-
 // function is responsible for getting the lat/lon for the city passed
 function fetchCoordinates(city) {
-    // this will make the call to get the coordinates for that city
-    var rootEndPoint = "website"
-    var apiCall = "rootEndPoint" + "q=" + city + "&appid" + apiKey
+  // this will make the call to get the coordinates for that city
+  var rootEndPoint = "http://api.openweathermap.org/geo/1.0/direct";
+  var apiCall = rootEndPoint + "?q=" + city + "&appid=" + apiKey;
 
-    fetch(apiCall)
-        .then(function (response) {
-            return response.json()
-        })  
-        .then(function (data) {
-            var lat = data[0].lat
-            var lon = data[0].lon
-            fetchWeather(lat, lon)
-        })
+  fetch(apiCall)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      var lat = data[0].lat;
+      var lon = data[0].lon;
+      fetchWeather(lat, lon);
+    });
 }
 
 // function is responsible for making API call with the user search term
 function fetchWeather(lat, lon) {
-    var apiCall = weatherAPI + "lat=" + lat + "&lon=" + lon + "&units=imperial" + "&appid=" + apiKey
-    fetch()
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            console.log(data)
+  var weatherURL = weatherAPI + "lat=" + lat + "&lon=" + lon + "&units=imperial" + "&appid=" + apiKey;
 
-            // take the temp and lets display to the user an h1
-            var h1El = document.createElement("h1")
-            h1El.textContent = data.list[0].main.temp
-            // append to DOM
-            dayForcast.append(h1El)
-        });
-    
-    // render the temp as an h1 to the user
+  fetch(weatherURL)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      renderDayForecast(data);
+      renderCards(data);
+    });
+}
 
+// function responsible for displaying 5 day forecast
+function renderCards(data) {
+  console.log(data);
+  var icon = `https://openweathermap.org/img/wn/${data.list[0].weather[0]["icon"]}.png`;
+
+  for (let i = 1; i < data.list.length; i += 8) {
+    var date = document.getElementById(`date${i}`);
+    var imgEl = document.createElement("img");
+    var temp = document.getElementById(`temp${i}`);
+    var wind = document.getElementById(`wind${i}`);
+    var humidity = document.getElementById(`humidity${i}`);
+
+    date.textContent = data.list[i].dt_txt;
+    imgEl.src = icon;
+    temp.textContent = `Temp: ${data.list[i].main.temp};`;
+    wind.textContent = `Wind: ${data.list[i].wind.speed}`;
+    humidity.textContent = `Humidity: ${data.list[i].main.humidity}`;
+
+    cardImage.append(imgEl);
+  }
+}
+
+function renderDayForecast(data) {
+  // console.log(data);
+  // console.log(data.city.name);
+  // console.log(data.list);
+  // console.log(data.list[0].dt_txt);
+  // console.log(data.list[0].main.humidity);
+  // console.log(data.list[0].wind.speed);
+  var icon = `https://openweathermap.org/img/wn/${data.list[0].weather[0]["icon"]}.png`;
+
+  var cityName = document.createElement("h1");
+  var currentDate = document.createElement("h1");
+  var imgEl = document.createElement("img");
+  var currentTemp = document.createElement("h1");
+  var wind = document.createElement("h1");
+  var humidity = document.createElement("h1");
+
+  cityName.textContent = data.city.name;
+  currentDate.textContent = data.list[0].dt_txt;
+  currentTemp.textContent = data.list[0].main.temp;
+  imgEl.src = icon;
+  wind.textContent = data.list[0].wind.speed;
+  humidity.textContent = data.list[0].main.humidity;
+
+  dayForecast.append(cityName);
+  dayForecast.append(currentDate);
+  dayForecast.append(currentTemp);
+  dayForecast.append(imgEl);
+  dayForecast.append(wind);
+  dayForecast.append(humidity);
 }
 
 // This function is responsible for form submission by capturing user input
 function handleFormSubmit(e) {
-    e.preventDefault()
+  e.preventDefault();
+  var cityInput = userInput.value;
 
-var input = userInput.value
-
-    // make an api call with that search term and confirm data is sent back
-    fetchWeather(input)
+  fetchCoordinates(cityInput);
+  setLocalStorage(cityInput);
 }
-
-
 
 // EVENT LISTENERS
 
-userForm.addEventListener("submit, handleFormSubmit")
-
+userForm.addEventListener("submit", handleFormSubmit);
 
 // LOCAL STORAGE
-// creat an empty array
-// push that value(name of the city) to that array
-localStorage.getItem("cities")
-localStorage.setItem("cities", "array of cities")
-// var cities = ["Austin", "Denver", "Seattle"]
+function setLocalStorage(city) {
+  var recentInput = [];
+  recentInput.push(city);
+  localStorage.setItem("city", city);
+}
+
+function getLocalStorage() {
+  recentButton.textContent = localStorage.getItem("city");
+}
+
+var recentButton = document.querySelector(".recent-button");
+recentButton.addEventListener("click", getLocalStorage);
