@@ -11,6 +11,7 @@
       integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="./Assets/css/style.css" />
   </head>
   <body>
     <header>
@@ -22,18 +23,21 @@
           <h2>Search for a City:</h2>
           <form id="form-submit">
             <div class="form-group">
-              <input type="text" class="form-control" id="user-input" aria-describedby="userInput" />
+              <input type="text" class="form-control" id="user-input" aria-describedby="userInput" style="margin-bottom: 10px" />
             </div>
-            <button type="submit" class="btn btn-primary">Search</button>
+            <button type="submit" class="btn btn-primary" style="width: 100%">Search</button>
           </form>
+          <hr />
           <div>
-            <button class="btn btn-secondary recent-button"></button>
+            <button class="btn btn-secondary recent-button" style="width: 100%"></button>
           </div>
         </aside>
-        <!-- <hr /> -->
-        <section id="current-forecast" class="col-lg-9"></section>
-        <section>
-          <div class="row card">
+        <section id="current-forecast" class="container-fluid col-lg-9"></section>
+        <div>
+          <h3 class="text-center">5 Day Forecast:</h3>
+        </div>
+        <section class="container w-75 d-flex flex-wrap justify-content-center col-lg-9">
+          <div class="card">
             <div class="card-body">
               <p id="date1"></p>
               <p id="icon1"></p>

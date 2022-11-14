@@ -61,12 +61,6 @@ function renderCards(data) {
 }
 
 function renderDayForecast(data) {
-  // console.log(data);
-  // console.log(data.city.name);
-  // console.log(data.list);
-  // console.log(data.list[0].dt_txt);
-  // console.log(data.list[0].main.humidity);
-  // console.log(data.list[0].wind.speed);
   var icon = `https://openweathermap.org/img/wn/${data.list[0].weather[0]["icon"]}.png`;
 
   var cityName = document.createElement("h1");
@@ -101,7 +95,6 @@ function handleFormSubmit(e) {
 }
 
 // EVENT LISTENERS
-
 userForm.addEventListener("submit", handleFormSubmit);
 
 // LOCAL STORAGE
@@ -111,9 +104,9 @@ function setLocalStorage(city) {
   localStorage.setItem("city", city);
 }
 
+var recentButton = document.querySelector(".recent-button");
+recentButton.addEventListener("click", getLocalStorage);
+
 function getLocalStorage() {
   recentButton.textContent = localStorage.getItem("city");
 }
-
-var recentButton = document.querySelector(".recent-button");
-recentButton.addEventListener("click", getLocalStorage);
