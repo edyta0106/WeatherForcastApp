@@ -102,10 +102,10 @@ userForm.addEventListener("submit", handleFormSubmit);
 function setLocalStorage(city) {
   var recentInput = [];
   recentInput.push(city);
-  localStorage.setItem("city", city);
+  localStorage.setItem("city", JSON.stringify(city));
 }
 
-var recentButton = document.querySelector(".recent-button");
+var recentButton = document.querySelector("#recent-button");
 recentButton.addEventListener("click", getLocalStorage);
 
 function getLocalStorage() {
