@@ -90,7 +90,6 @@ function renderDayForecast(data) {
 function handleFormSubmit(e) {
   e.preventDefault();
   var cityInput = userInput.value;
-
   fetchCoordinates(cityInput);
   setLocalStorage(cityInput);
 }
