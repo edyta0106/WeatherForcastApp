@@ -5,6 +5,7 @@ var dayForecast = document.getElementById("current-forecast");
 var cardImage = document.querySelector(".card-body");
 var weatherAPI = "https://api.openweathermap.org/data/2.5/forecast?";
 var apiKey = "b204b903e2aaaf70273697cbb04e6443";
+var recentCity = [];
 
 // FUNCTIONS
 // function is responsible for getting the lat/lon for the city passed
