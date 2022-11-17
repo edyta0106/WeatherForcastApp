@@ -10,7 +10,7 @@ var apiKey = "b204b903e2aaaf70273697cbb04e6443";
 // function is responsible for getting the lat/lon for the city passed
 function fetchCoordinates(city) {
   // this will make the call to get the coordinates for that city
-  var rootEndPoint = "http://api.openweathermap.org/geo/1.0/direct";
+  var rootEndPoint = "https://api.openweathermap.org/geo/1.0/direct";
   var apiCall = rootEndPoint + "?q=" + city + "&appid=" + apiKey;
 
   fetch(apiCall)
@@ -56,11 +56,13 @@ function renderCards(data) {
     wind.textContent = `Wind: ${data.list[i].wind.speed}`;
     humidity.textContent = `Humidity: ${data.list[i].main.humidity}`;
 
-    cardImage.append(imgEl);
+    // cardImage.append(imgEl);
   }
 }
 
 function renderDayForecast(data) {
+  dayForecast.textContent = "";
+
   var icon = `https://openweathermap.org/img/wn/${data.list[0].weather[0]["icon"]}.png`;
 
   var cityName = document.createElement("h1");
@@ -95,13 +97,16 @@ function handleFormSubmit(e) {
 
 function pastCityEntry(e) {
   e.preventDefault();
-  var cityInput = this.textContent;
+  if (!e.target.matches(".city-search-button")) {
+    return;
+  }
+  var button = e.target;
+  var cityInput = button.textContent;
   fetchCoordinates(cityInput);
 }
 
 // EVENT LISTENERS
 userForm.addEventListener("submit", handleFormSubmit);
-.addEventListener("submit", handleFormSubmit);
 
 // LOCAL STORAGE
 var recentInput = JSON.parse(localStorage.getItem("city")) || [];
@@ -110,20 +115,17 @@ function setLocalStorage(city) {
   localStorage.setItem("city", JSON.stringify(recentInput));
 }
 
-// var recentButton = document.querySelector("#recent-button");
-// recentButton.addEventListener("click", getLocalStorage);
-
+var pastSearchContainer = document.querySelector(".past-search-buttons");
 function getLocalStorage() {
-  var pastSearchContainer = document.querySelector(".past-search-buttons");
   var recentCities = JSON.parse(localStorage.getItem("city"));
   console.log(recentCities);
   for (let i = 0; i < recentCities.length; i++) {
     const city = recentCities[i];
     var citySearchButton = document.createElement("button");
     citySearchButton.textContent = city;
-    citySearchButton.setAttribute()
-
+    citySearchButton.setAttribute("class", "btn btn-secondary w-100 m-1 city-search-button");
     pastSearchContainer.append(citySearchButton);
   }
 }
 getLocalStorage();
+pastSearchContainer.addEventListener("click", pastCityEntry);
