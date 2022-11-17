@@ -41,17 +41,17 @@ function fetchWeather(lat, lon) {
 // function responsible for displaying 5 day forecast
 function renderCards(data) {
   console.log(data);
-  var icon = `https://openweathermap.org/img/wn/${data.list[0].weather[0]["icon"]}.png`;
+  // var icon = `https://openweathermap.org/img/wn/${data.list[0].weather[0]["icon"]}.png`;
 
   for (let i = 1; i < data.list.length; i += 8) {
     var date = document.getElementById(`date${i}`);
-    var imgEl = document.createElement("img");
+    // var imgEl = document.createElement("img");
     var temp = document.getElementById(`temp${i}`);
     var wind = document.getElementById(`wind${i}`);
     var humidity = document.getElementById(`humidity${i}`);
 
     date.textContent = data.list[i].dt_txt;
-    imgEl.src = icon;
+    // imgEl.src = icon;
     temp.textContent = `Temp: ${data.list[i].main.temp};`;
     wind.textContent = `Wind: ${data.list[i].wind.speed}`;
     humidity.textContent = `Humidity: ${data.list[i].main.humidity}`;
@@ -93,23 +93,37 @@ function handleFormSubmit(e) {
   setLocalStorage(cityInput);
 }
 
-// EVENT LISTENERS
-userForm.addEventListener("submit", handleFormSubmit);
-
-// LOCAL STORAGE
-
-function setLocalStorage(city) {
-  var recentInput = [];
-  recentInput.push(city);
-  localStorage.setItem("city", JSON.stringify(city));
+function pastCityEntry(e) {
+  e.preventDefault();
+  var cityInput = this.textContent;
+  fetchCoordinates(cityInput);
 }
 
-var recentButton = document.querySelector("#recent-button");
-recentButton.addEventListener("click", getLocalStorage);
+// EVENT LISTENERS
+userForm.addEventListener("submit", handleFormSubmit);
+.addEventListener("submit", handleFormSubmit);
 
-function getLocalStorage(city) {
-  var recentCity = [];
-  recentCity.push = city;
-  recentButton.textContent = JSON.parse(localStorage.getItem("city"));
+// LOCAL STORAGE
+var recentInput = JSON.parse(localStorage.getItem("city")) || [];
+function setLocalStorage(city) {
+  recentInput.push(city);
+  localStorage.setItem("city", JSON.stringify(recentInput));
+}
+
+// var recentButton = document.querySelector("#recent-button");
+// recentButton.addEventListener("click", getLocalStorage);
+
+function getLocalStorage() {
+  var pastSearchContainer = document.querySelector(".past-search-buttons");
+  var recentCities = JSON.parse(localStorage.getItem("city"));
+  console.log(recentCities);
+  for (let i = 0; i < recentCities.length; i++) {
+    const city = recentCities[i];
+    var citySearchButton = document.createElement("button");
+    citySearchButton.textContent = city;
+    citySearchButton.setAttribute()
+
+    pastSearchContainer.append(citySearchButton);
+  }
 }
 getLocalStorage();
