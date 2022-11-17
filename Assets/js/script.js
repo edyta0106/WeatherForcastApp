@@ -5,7 +5,6 @@ var dayForecast = document.getElementById("current-forecast");
 var cardImage = document.querySelector(".card-body");
 var weatherAPI = "https://api.openweathermap.org/data/2.5/forecast?";
 var apiKey = "b204b903e2aaaf70273697cbb04e6443";
-var recentCity = [];
 
 // FUNCTIONS
 // function is responsible for getting the lat/lon for the city passed
@@ -98,6 +97,7 @@ function handleFormSubmit(e) {
 userForm.addEventListener("submit", handleFormSubmit);
 
 // LOCAL STORAGE
+
 function setLocalStorage(city) {
   var recentInput = [];
   recentInput.push(city);
@@ -107,6 +107,9 @@ function setLocalStorage(city) {
 var recentButton = document.querySelector("#recent-button");
 recentButton.addEventListener("click", getLocalStorage);
 
-function getLocalStorage() {
-  recentButton.textContent = localStorage.getItem("city");
+function getLocalStorage(city) {
+  var recentCity = [];
+  recentCity.push = city;
+  recentButton.textContent = JSON.parse(localStorage.getItem("city"));
 }
+getLocalStorage();
