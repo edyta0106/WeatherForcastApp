@@ -52,7 +52,7 @@ function renderCards(data) {
 
     date.textContent = data.list[i].dt_txt;
     // imgEl.src = icon;
-    temp.textContent = `Temp: ${data.list[i].main.temp};`;
+    temp.textContent = `Temp: ${data.list[i].main.temp}`;
     wind.textContent = `Wind: ${data.list[i].wind.speed}`;
     humidity.textContent = `Humidity: ${data.list[i].main.humidity}`;
 
@@ -74,10 +74,10 @@ function renderDayForecast(data) {
 
   cityName.textContent = data.city.name;
   currentDate.textContent = data.list[0].dt_txt;
-  currentTemp.textContent = data.list[0].main.temp;
+  currentTemp.textContent = "Temp: " + data.list[0].main.temp;
   imgEl.src = icon;
-  wind.textContent = data.list[0].wind.speed;
-  humidity.textContent = data.list[0].main.humidity;
+  wind.textContent = "Wind: " + data.list[0].wind.speed;
+  humidity.textContent = "Humidity: " + data.list[0].main.humidity;
 
   dayForecast.append(cityName);
   dayForecast.append(currentDate);
