@@ -59,7 +59,7 @@ function renderCards(data) {
     // cardImage.append(imgEl);
   }
 }
-
+// Function responsilbe for current day forecast
 function renderDayForecast(data) {
   dayForecast.textContent = "";
 
@@ -73,7 +73,8 @@ function renderDayForecast(data) {
   var humidity = document.createElement("h1");
 
   cityName.textContent = data.city.name;
-  currentDate.textContent = data.list[0].dt_txt;
+  var date = new Date(data.list[0].dt_txt);
+  currentDate.textContent = date.toLocaleDateString("en-us", { year: "numeric", month: "numeric", day: "numeric" });
   currentTemp.textContent = "Temp: " + data.list[0].main.temp;
   imgEl.src = icon;
   wind.textContent = "Wind: " + data.list[0].wind.speed;
@@ -108,7 +109,7 @@ function pastCityEntry(e) {
 // EVENT LISTENERS
 userForm.addEventListener("submit", handleFormSubmit);
 
-// LOCAL STORAGE
+// LOCAL STORAGE -- setItem first -- then getItem
 var recentInput = JSON.parse(localStorage.getItem("city")) || [];
 function setLocalStorage(city) {
   recentInput.push(city);
